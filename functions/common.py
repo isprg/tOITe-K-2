@@ -57,6 +57,8 @@ def CheckComplete(cCtrlCard):
 def PlaySound(path):
 	if os.name != 'nt':
 		subprocess.Popen(["aplay", "--quiet", path])
+	else:
+		subprocess.Popen(["powershell", "-c", f"(New-Object Media.SoundPlayer '{path}').PlaySync();"])
 	print('play sound')
 
 

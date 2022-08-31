@@ -14,7 +14,7 @@ def updateDictProc_Match(dictProc):
 		# "MATCH_CORRECT" : procMatch_Correct,
 		# "MATCH_WRONG"	: procMatch_Wrong,
 		"MATCH_ANSWER"	: procMatch_Answer,		
-		"MATCH_keyword"	: procMatch_keyword,
+		"MATCH_KEYWORD"	: procMatch_keyword,
 	}
 	return dict(dictProc, **dictProc_this)
 
@@ -61,6 +61,7 @@ def procMatch_Q(dictArgument):
 
 # テンプレートマッチ画面 ================================================
 def procMatch_Process(dictArgument):
+	event = dictArgument["Event"]
 	cState = dictArgument["State"]
 	proc = dictArgument["ImageProc"]
 	cCtrlCard = dictArgument["CtrlCard"]
@@ -87,13 +88,10 @@ def procMatch_Process(dictArgument):
 
 # 解説表示 ================================================
 def procMatch_Answer(dictArgument):
-	print("e")
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
 
-	print("f")
 	if event == "MATCH_ANSWER":
-		print("g")
 		vPosition = pyautogui.position()
 		listArea = getDefaultAreaDefinition()
 		sTappedArea = CheckTappedArea(vPosition, listArea)
@@ -102,7 +100,6 @@ def procMatch_Answer(dictArgument):
 		if sTappedArea == 0:  # 次へをタップ
 			sStartTime = cState.updateState("MATCH_KEYWORD")
 			dictArgument["Start time"] = sStartTime
-	print("h")
 
 # 合言葉表示 ================================================
 def procMatch_keyword(dictArgument):
@@ -120,4 +117,4 @@ def procMatch_keyword(dictArgument):
 			dictArgument["Start time"] = sStartTime
 
 			# テンプレートマッチをクリアしたのでプレイできないように設定
-			cState.dictWindow["SELECT_GAME"]["おちゃわん１"].update(disabled=True)
+			cState.dictWindow["SELECT_GAME"]["もんだい1"].update(disabled=True)

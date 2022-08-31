@@ -13,7 +13,7 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 		self.timeout = 30.0  # 制限時間(使用していない)
 		self.effecttime = 2.0  # 演出表示時間
 		self.sensorsize = self.sensor.getImageSize()
-		self.createOverlay("images/overlay1.png")
+		self.createOverlay("images/overlay_process.png")
 
 		# 動作フラグ
 		self.isCorrect = None
@@ -25,8 +25,8 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 		self.PlaySound_Flag = True
 
 		# 判定に使う領域
-		self.roi_size = (200, 200)
-		self.roi_lt = (int(self.sensorsize[0] / 2) - int(self.roi_size[0] / 2), 40)
+		self.roi_size = (150, 150)
+		self.roi_lt = (156, 41)
 		self.roi_rb = (
 			self.roi_lt[0] + self.roi_size[0],
 			self.roi_lt[1] + self.roi_size[1],
@@ -34,10 +34,10 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 
 		# テンプレートの登録
 		self.temps = []
-		self.createTemplate(1, "images/image1.jpg")
-		self.createTemplate(2, "images/image2.jpg")
-		self.createTemplate(3, "images/image3.jpg")
-		self.createTemplate(4, "images/image4.jpg")
+		self.createTemplate(1, "images/image1.png")
+		self.createTemplate(2, "images/image2.png")
+		self.createTemplate(3, "images/image3.png")
+		self.createTemplate(4, "images/image4.png")
 
 		# 開始時刻の計測
 		self.start = time.time()
@@ -50,7 +50,7 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 		self.PlaySound_Flag = True
 		for i in range(5):
 			self.sensor.read()
-		self.createOverlay("images/overlay1.png")
+		self.createOverlay("images/overlay_process.png")
 
 	def createOverlay(self, imgPath: str):
 		"""オーバーレイを変更する
@@ -99,7 +99,7 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 					self.isCorrect = None
 					return False
 				else:
-					self.createOverlay("images/overlay1.png")
+					self.createOverlay("images/overlay_process.png")
 					self.isCoda = False
 
 				self.PlaySound_Flag = True
@@ -109,15 +109,14 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 			if self.tempId is None:
 				# 時間切れ
 				self.isCorrect = None
-				self.createOverlay("images/error.png")
 			elif self.tempId == 1:
 				# 正解演出
 				self.isCorrect = True
-				self.createOverlay("images/correct.png")
+				self.createOverlay("images/overlay_correct.png")
 			else:
 				# 不正解
 				self.isCorrect = False
-				self.createOverlay("images/wrong.png")
+				self.createOverlay("images/overlay_wrong.png")
 			self.start = time.time()
 			self.isMatch = False
 			self.isCoda = True
@@ -170,7 +169,7 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 			for i in range(0, 4):
 				print(f"id:{ids[i]}, val:{vals[i]}")
 
-		frame = self.commonUI(frame)
+		# frame = self.commonUI(frame)
 		self.imProcessed = frame
 		return None
 
@@ -180,10 +179,10 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 			pt1=self.roi_lt,
 			pt2=self.roi_rb,
 			color=(193, 117, 0),
-			thickness=5,
+			thickness=1,
 			lineType=cv2.LINE_AA,
 		)
-		frame = cv2.flip(frame, 1)
+		# frame = cv2.flip(frame, 1)
 		return frame
 
 	def execute(self):

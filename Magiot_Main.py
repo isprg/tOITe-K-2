@@ -8,7 +8,6 @@ from functions.CardFunc import *
 from functions.ModeFuncMatch import updateDictProc_Match, updateDictWindow_Match
 from functions.common import getDictFlag
 from Classes.ClsCtrlStateAndWindow import ClsCtrlStateAndWindow
-from Classes.ClsImageProcessTempMatch import ClsImageProcessTempMatch
 
 if os.name == 'nt':
 	from Classes.ClsCtrlCardDummy import ClsCtrlCard
@@ -18,6 +17,7 @@ else:
 
 import sys
 sys.path.append("./Classes")
+from ClsImageProcessTempMatch import ClsImageProcessTempMatch
 
 
 # 環境設定 =============================================================

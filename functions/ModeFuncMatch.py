@@ -1,35 +1,37 @@
 import cv2
+import pyautogui
+
 from functions.setGUI import setGUI
-from functions.common import Check_Clear, PlaySound
-from functions.DesignLayout import make_4choice_layout
-from functions.DesignLayout import make_fullimage_layout
+from functions.common import CheckComplete, PlaySound, CheckTappedArea
+from functions.DesignLayout import *
 
 
 # 処理の辞書割り当て ======================================================
 def updateDictProc_Match(dictProc):
 	dictProc_this = {
-		"TEARAI_Q1"			: procMatch_Q1,
-		"TEARAI_Q2"			: procMatch_Q2,
-		"TEARAI_IMAGE_PROC"	: procMatch_ImageProc,
-		"TEARAI_CORRECT"	: procMatch_Correct,
-		"TEARAI_CLEAR"		: procMatch_Clear,
+		"MATCH_Q"		: procMatch_Q,
+		"MATCH_PROCESS"	: procMatch_Process,
+		# "MATCH_CORRECT" : procMatch_Correct,
+		# "MATCH_WRONG"	: procMatch_Wrong,
+		"MATCH_ANSWER"	: procMatch_Answer,		
+		"MATCH_keyword"	: procMatch_keyword,
 	}
 	return dict(dictProc, **dictProc_this)
 
 
 # レイアウト設定・辞書割り当て =============================================
 def updateDictWindow_Match(dictWindow):
-	layoutTearai_Q1 = make_4choice_layout("png/tea_q1.png", ["", "", "", "次へ"])
-	layoutTearai_Q2 = make_4choice_layout("png/tea_q2.png", ["A", "B", "C", "D"])
-	layoutTearai_Correct = make_4choice_layout("png/tea_a.png", ["", "", "", "次へ"])
-	layoutTearai_Clear = make_4choice_layout("png/tea_i.png", ["", "", "", "次へ"])
+	layoutMatch_Q = make_fullimage_layout("png/match_q.png", "MATCH_Q")
+	layoutMatch_Answer = make_fullimage_layout("png/match_answer.png", "MATCH_ANSWER")
+	layoutMatch_keyword = make_fullimage_layout("png/match_keyword.png", "MATCH_KEYWORD")
 
 	dictLayout = {
-		"TEARAI_Q1"			: layoutTearai_Q1,
-		"TEARAI_Q2"			: layoutTearai_Q2,
-		"TEARAI_IMAGE_PROC"	: 'None',
-		"TEARAI_CORRECT"	: layoutTearai_Correct,
-		"TEARAI_CLEAR"		: layoutTearai_Clear,
+		"MATCH_Q"		: layoutMatch_Q,
+		"MATCH_PROCESS"	: "None",
+		# "MATCH_CORRECT"	: "None",
+		# "MATCH_WRONG"	: "None",
+		"MATCH_ANSWER"	: layoutMatch_Answer,
+		"MATCH_KEYWORD"	: layoutMatch_keyword,
 	}
 	dictWindow_this = setGUI(dictLayout)
 	
@@ -42,79 +44,80 @@ def getDefaultAreaDefinition():
 
     return listArea
 
-# tearai_Q1モード処理 ======================================================
-def procMatch_Q1(dictArgument):
+# 鍵屋マーク問題表示 ================================================
+def procMatch_Q(dictArgument):
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
-	proc = dictArgument["ImageProc"]
 
-	if event == "次へ":
-		proc.createWindows()
-		sStartTime = cState.updateState("TEARAI_IMAGE_PROC")
-		dictArgument["Start time"] = sStartTime
+	if event == "MATCH_Q":
+		vPosition = pyautogui.position()
+		listArea = getDefaultAreaDefinition()
+		sTappedArea = CheckTappedArea(vPosition, listArea)
+		print(sTappedArea)
 
+		if sTappedArea == 0:  # 次へをタップ
+			sStartTime = cState.updateState("MATCH_PROCESS")
+			dictArgument["Start time"] = sStartTime
 
-# tearai_ImageProcモード処理 ======================================================
-def procMatch_ImageProc(dictArgument):
+# テンプレートマッチ画面 ================================================
+def procMatch_Process(dictArgument):
 	cState = dictArgument["State"]
 	proc = dictArgument["ImageProc"]
 	cCtrlCard = dictArgument["CtrlCard"]
 
+	proc.createWindows()
 	isFound = proc.execute()
 	cv2.waitKey(1)
 
 	if isFound:
-		cCtrlCard.write_result("tearai1", "T")
+		# cCtrlCard.write_result("match", "T")
 
-		sStartTime = cState.updateState("TEARAI_Q2")
+		sStartTime = cState.updateState("MATCH_ANSWER")
 		dictArgument["Start time"] = sStartTime
 
-		proc.closeWindows()
+		proc.Finalize()
 
+# 正解オーバーレイ表示 ================================================
+# def procMatch_Correct(dictArgument):
+# 	pass
 
-# tearai_Q2モード処理 ======================================================
-def procMatch_Q2(dictArgument):
-	event = dictArgument["Event"]
-	cState = dictArgument["State"]
-	cCtrlCard = dictArgument["CtrlCard"]
+# 不正解オーバーレイ表示 ================================================
+# def procMatch_Wrong(dictArgument):
+# 	pass
 
-	if event == "B":
-		PlaySound("sound/correct.wav")
-
-		cCtrlCard.write_result("tearai2", "T")
-
-		sStartTime = cState.updateState("TEARAI_CORRECT")
-		dictArgument["Start time"] = sStartTime
-
-	elif event != "-timeout-":
-		PlaySound("sound/wrong.wav")
-
-
-# tearai_correctモード処理 ======================================================
-def procMatch_Correct(dictArgument):
+# 解説表示 ================================================
+def procMatch_Answer(dictArgument):
+	print("e")
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
 
-	if event == "次へ":
-		sStartTime = cState.updateState("TEARAI_CLEAR")
-		dictArgument["Start time"] = sStartTime
+	print("f")
+	if event == "MATCH_ANSWER":
+		print("g")
+		vPosition = pyautogui.position()
+		listArea = getDefaultAreaDefinition()
+		sTappedArea = CheckTappedArea(vPosition, listArea)
+		print(sTappedArea)
 
+		if sTappedArea == 0:  # 次へをタップ
+			sStartTime = cState.updateState("MATCH_KEYWORD")
+			dictArgument["Start time"] = sStartTime
+	print("h")
 
-# tearai_clearモード処理 ======================================================
-def procMatch_Clear(dictArgument):
+# 合言葉表示 ================================================
+def procMatch_keyword(dictArgument):
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
-	cCtrlCard = dictArgument["CtrlCard"]
 
-	if event == "次へ":
-		if Check_Clear(cCtrlCard):
-			sStartTime = cState.updateState("CLEAR1")
-			cCtrlCard.write_result("clear_game", "T")  # ゲームクリア済みであることを記録
-		else:
+	if event == "MATCH_KEYWORD":
+		vPosition = pyautogui.position()
+		listArea = getDefaultAreaDefinition()
+		sTappedArea = CheckTappedArea(vPosition, listArea)
+		print(sTappedArea)
+
+		if sTappedArea == 0:  # 次へをタップ
 			sStartTime = cState.updateState("SELECT_GAME")
+			dictArgument["Start time"] = sStartTime
 
-		dictArgument["Start time"] = sStartTime
-
-		# テアライをクリアしたのでプレイできないように設定
-		cState.dictWindow["SELECT_GAME"]["テアライ"].update(disabled=True)
-
+			# テンプレートマッチをクリアしたのでプレイできないように設定
+			cState.dictWindow["SELECT_GAME"]["おちゃわん１"].update(disabled=True)

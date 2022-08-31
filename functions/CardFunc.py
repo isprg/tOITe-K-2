@@ -13,16 +13,8 @@ def SetGame_FromCard(dictArgument):
 		print("game complete")
 
 	# アイスをクリアしている場合
-	elif dictSaveData["ice"] == "T":
-		cState.dictWindow["SELECT_GAME"]["アイス"].update(disabled=True)
-
-	# ピザをクリアしている場合
-	elif dictSaveData["pizza"] == "T":
-			cState.dictWindow["SELECT_GAME"]["ピザ"].update(disabled=True)
-
-	# ピザをクリアしている場合
-	elif dictSaveData["sea"] == "T":
-			cState.dictWindow["SELECT_GAME"]["海"].update(disabled=True)
+	elif dictSaveData["match"] == "T":
+		cState.dictWindow["SELECT_GAME"]["問題１"].update(disabled=True)
 
 	else:
 		# カードを初期化

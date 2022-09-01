@@ -12,13 +12,13 @@ def SetGame_FromCard(dictArgument):
 	if dictSaveData is not None and dictSaveData["complete"] == "T":
 		print("game complete")
 
-	elif dictSaveData["tutorial"] != "T":
-		sStartTime = cState.updateState("GO_TUTORIAL")
-		dictArgument["Start time"] = sStartTime
-
 	# アイスをクリアしている場合
 	elif dictSaveData["match"] == "T":
 		cState.dictWindow["SELECT_GAME"]["もんだい1"].update(disabled=True)
+
+	elif dictSaveData["tutorial"] != "T":
+		sStartTime = cState.updateState("GO_TUTORIAL")
+		dictArgument["Start time"] = sStartTime
 
 	elif isBlank(cCtrlCard):
 		print("InitCard")

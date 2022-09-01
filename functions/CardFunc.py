@@ -12,7 +12,7 @@ def SetGame_FromCard(dictArgument):
 	if dictSaveData is not None and dictSaveData["complete"] == "T":
 		print("game complete")
 
-	elif dictSaveData["tutorial"] == "T":
+	elif dictSaveData["tutorial"] == "0":
 		sStartTime = cState.updateState("GO_TUTRIAL")
 		dictArgument["Start time"] = sStartTime
 

@@ -14,6 +14,7 @@ def createDictProc():
 		"STANDBY"			: standbyModeProc,
 		"TITLE"				: titleModeProc,
 		"SELECT_GAME"		: select_game_ModeProc,
+		"GO_TUTRIAL"		: go_tutrialModeProc,
 		"ENDING"			: endingModeProc,
 		"CARD_ERROR"		: card_error_ModeProc,
 	}
@@ -26,6 +27,7 @@ def createDictWindow():
 	layoutStandby = make_fullimage_layout("png/standby01.png", "STANDBY")
 	layoutTitle = make_fullimage_layout("png/title.png", "TITLE")
 	layoutSelect_Game = make_4choice_layout("png/select01.png", ["もんだい1", "ピザ", "海", "画像"])
+	layoutGo_Tutrial = make_fullimage_layout("png/sample.png", "GO_TUTRIAL")
 	layoutEnding = make_fullimage_layout("png/ending.png", "ENDING")
 	layoutCard_Error = make_fullimage_layout("png/card_alert.png", "CARD_ERROR")
 
@@ -34,6 +36,7 @@ def createDictWindow():
 		"STANDBY"     : layoutStandby,
 		"TITLE"       : layoutTitle,
 		"SELECT_GAME" : layoutSelect_Game,
+		"GO_TUTRIAL"  : layoutGo_Tutrial,
 		"ENDING"      : layoutEnding,
 		"CARD_ERROR"  : layoutCard_Error,
     }
@@ -87,6 +90,13 @@ def select_game_ModeProc(dictArgument):
 		sStartTime = cState.updateState("QR_Q")
 		proc.createWindows()
 		dictArgument["Start time"] = sStartTime
+
+# TITLEモード処理 ======================================================
+def go_tutrialModeProc(dictArgument):
+	event = dictArgument["Event"]
+	
+	if event == "GO_TUTRIAL":
+		pass
 
 # ENDINGモード処理 =========================================================
 def endingModeProc(dictArgument):

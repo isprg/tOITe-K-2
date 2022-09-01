@@ -94,9 +94,11 @@ def select_game_ModeProc(dictArgument):
 # TITLEモード処理 ======================================================
 def go_tutorialModeProc(dictArgument):
 	event = dictArgument["Event"]
+	cState = dictArgument["State"]
 	
 	if event == "GO_TUTORIAL":
-		pass
+		sStartTime = cState.updateState("CARD_ERROR")
+		dictArgument["Start time"] = sStartTime
 
 # ENDINGモード処理 =========================================================
 def endingModeProc(dictArgument):
@@ -124,5 +126,5 @@ def card_error_ModeProc(dictArgument):
 		dictArgument["Return state"] = None
 		dictArgument["Start time"] = sStartTime
 
-	elif identical is False or time.time() - dictArgument["Start time"] > 20:
+	elif identical is False or time.time() - dictArgument["Start time"] > 10:
 		Reset_Game(dictArgument)

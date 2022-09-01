@@ -13,7 +13,7 @@ def SetGame_FromCard(dictArgument):
 		print("game complete")
 
 	elif dictSaveData["tutorial"] == "0":
-		sStartTime = cState.updateState("GO_TUTRIAL")
+		sStartTime = cState.updateState("GO_TUTORIAL")
 		dictArgument["Start time"] = sStartTime
 
 	# アイスをクリアしている場合

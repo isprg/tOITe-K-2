@@ -203,7 +203,7 @@ if __name__ == "__main__":
 	sMonitorWidth = 1024
 	sMonitorHeight = 600
 	tplWindowName = ('full',)
-	sFlipMode = 0
+	sFlipMode = 2
 
 	proc = ClsImageProcessTempMatch(
 		strPlatform, 

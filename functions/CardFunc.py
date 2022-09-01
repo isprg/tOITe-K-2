@@ -1,4 +1,4 @@
-
+from functions.common import isBlank
 
 # ゲームの状態をカードに保存されているデータから設定
 def SetGame_FromCard(dictArgument):
@@ -12,16 +12,21 @@ def SetGame_FromCard(dictArgument):
 	if dictSaveData is not None and dictSaveData["complete"] == "T":
 		print("game complete")
 
+	elif dictSaveData["tutorial"] == "T":
+		sStartTime = cState.updateState("GO_TUTRIAL")
+		dictArgument["Start time"] = sStartTime
+
 	# アイスをクリアしている場合
 	elif dictSaveData["match"] == "T":
-		cState.dictWindow["SELECT_GAME"]["問題１"].update(disabled=True)
+		cState.dictWindow["SELECT_GAME"]["もんだい1"].update(disabled=True)
 
-	else:
-		# カードを初期化
+	elif isBlank(cCtrlCard):
 		print("InitCard")
 		cCtrlCard.initCard()
-		sStartTime = cState.updateState("SELECT_GAME")
-		dictArgument["Start time"] = sStartTime
+		
+	else:
+		print("all clear this machine")
+		
 
 
 # カードの状態をチェック

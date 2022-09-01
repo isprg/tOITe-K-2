@@ -62,10 +62,10 @@ def standbyModeProc(dictArgument):
 	setFlag = cCtrlCard.setCard()
 
 	if setFlag:
-		SetGame_FromCard(dictArgument)
 		PlaySound("sound/card_set.wav")
 		sStartTime = cState.updateState("SELECT_GAME")
 		dictArgument["Start time"] = sStartTime
+		SetGame_FromCard(dictArgument)
 
 
 # SELECT_GAMEモード処理 =================================================
@@ -96,7 +96,7 @@ def go_tutorialModeProc(dictArgument):
 	event = dictArgument["Event"]
 	
 	if event == "GO_TUTORIAL":
-		Reset_Game(dictArgument)
+		pass
 
 # ENDINGモード処理 =========================================================
 def endingModeProc(dictArgument):

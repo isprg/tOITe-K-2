@@ -3,6 +3,7 @@ import pyautogui
 import yaml
 import os
 
+from functions.AdminMode import AdminMode
 from functions.ModeFuncBase import *
 from functions.CardFunc import *
 from functions.ModeFuncMatch import updateDictProc_Match, updateDictWindow_Match
@@ -145,7 +146,7 @@ def mainThread():
 if __name__ == "__main__":
 	while True:
 		Admin_CardID = mainThread()
-		#adminCommand = AdminMode(Admin_CardID)
+		adminCommand = AdminMode(Admin_CardID)
 
 		if os.name == 'nt':
 			adminCommand = "end"

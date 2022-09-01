@@ -96,7 +96,7 @@ def go_tutorialModeProc(dictArgument):
 	event = dictArgument["Event"]
 	
 	if event == "GO_TUTORIAL":
-		pass
+		Reset_Game(dictArgument)
 
 # ENDINGモード処理 =========================================================
 def endingModeProc(dictArgument):

@@ -97,8 +97,7 @@ def go_tutorialModeProc(dictArgument):
 	cState = dictArgument["State"]
 	
 	if event == "GO_TUTORIAL":
-		sStartTime = cState.updateState("CARD_ERROR")
-		dictArgument["Start time"] = sStartTime
+		Reset_Game(dictArgument)
 
 # ENDINGモード処理 =========================================================
 def endingModeProc(dictArgument):

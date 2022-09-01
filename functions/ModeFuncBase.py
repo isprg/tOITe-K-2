@@ -36,7 +36,7 @@ def createDictWindow():
 		"STANDBY"     : layoutStandby,
 		"TITLE"       : layoutTitle,
 		"SELECT_GAME" : layoutSelect_Game,
-		"GO_TUTORIAL"  : layoutGo_Tutorial,
+		"GO_TUTORIAL" : layoutGo_Tutorial,
 		"ENDING"      : layoutEnding,
 		"CARD_ERROR"  : layoutCard_Error,
     }

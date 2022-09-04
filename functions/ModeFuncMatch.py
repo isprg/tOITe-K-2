@@ -64,15 +64,12 @@ def procMatch_Process(dictArgument):
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
 	proc = dictArgument["ImageProc"]
-	cCtrlCard = dictArgument["CtrlCard"]
 
 	proc.createWindows()
 	isFound = proc.execute()
 	cv2.waitKey(1)
 
 	if isFound:
-		# cCtrlCard.write_result("match", "T")
-
 		sStartTime = cState.updateState("MATCH_ANSWER")
 		dictArgument["Start time"] = sStartTime
 
@@ -105,6 +102,7 @@ def procMatch_Answer(dictArgument):
 def procMatch_keyword(dictArgument):
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]
+	cCtrlCard = dictArgument["CtrlCard"]
 
 	if event == "MATCH_KEYWORD":
 		vPosition = pyautogui.position()
@@ -113,6 +111,8 @@ def procMatch_keyword(dictArgument):
 		print(sTappedArea)
 
 		if sTappedArea == 0:  # 次へをタップ
+			cCtrlCard.write_result("match", "T")
+
 			sStartTime = cState.updateState("SELECT_GAME")
 			dictArgument["Start time"] = sStartTime
 

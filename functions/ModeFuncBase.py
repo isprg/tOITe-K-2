@@ -91,7 +91,7 @@ def select_game_ModeProc(dictArgument):
 		proc.createWindows()
 		dictArgument["Start time"] = sStartTime
 
-# TITLEモード処理 ======================================================
+# チュートリアル未達成モード処理 ======================================================
 def go_tutorialModeProc(dictArgument):
 	event = dictArgument["Event"]
 	cState = dictArgument["State"]

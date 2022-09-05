@@ -8,24 +8,30 @@ def SetGame_FromCard(dictArgument):
 	dictSaveData = cCtrlCard.read_result()
 	print("Save Data:", dictSaveData)
 
-	# 全問正解の場合
-	if dictSaveData is not None and dictSaveData["complete"] == "T":
-		print("game complete")
-
-	# アイスをクリアしている場合
-	elif dictSaveData["match"] == "T":
-		cState.dictWindow["SELECT_GAME"]["もんだい1"].update(disabled=True)
-
-	elif dictSaveData["tutorial"] != "T":
+	# チュートリアル未実施
+	if dictSaveData is None or dictSaveData["tutorial"] != "T":
 		sStartTime = cState.updateState("GO_TUTORIAL")
 		dictArgument["Start time"] = sStartTime
 
-	elif isBlank(cCtrlCard):
-		print("InitCard")
-		cCtrlCard.initCard()
-		
+	# # 全問正解の場合
+	# elif dictSaveData["complete"] == "T":
+	# 	print("game complete")
+
 	else:
-		print("all clear this machine")
+		# テンプレートマッチをクリアしている場合
+		if dictSaveData["match"] == "T":
+			cState.dictWindow["SELECT_GAME"]["鍵屋マーク"].update(disabled=True)
+		
+		# 指向性スピーカーをクリアしている場合
+		if dictSaveData["speaker"] == "T":
+			cState.dictWindow["SELECT_GAME"]["くらわんか茶碗"].update(disabled=True)	
+
+	# elif isBlank(cCtrlCard):
+	# 	print("InitCard")
+	# 	cCtrlCard.initCard()
+		
+	# else:
+	# 	print("all clear this machine")
 		
 
 

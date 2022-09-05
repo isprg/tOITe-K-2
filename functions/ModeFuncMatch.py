@@ -117,4 +117,4 @@ def procMatch_keyword(dictArgument):
 			dictArgument["Start time"] = sStartTime
 
 			# テンプレートマッチをクリアしたのでプレイできないように設定
-			cState.dictWindow["SELECT_GAME"]["もんだい1"].update(disabled=True)
+			cState.dictWindow["SELECT_GAME"]["鍵屋マーク"].update(disabled=True)

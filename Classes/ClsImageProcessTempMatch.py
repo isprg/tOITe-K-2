@@ -34,10 +34,10 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 
 		# テンプレートの登録
 		self.temps = []
-		self.createTemplate(1, "images/image1.png")
-		self.createTemplate(2, "images/image2.png")
-		self.createTemplate(3, "images/image3.png")
-		self.createTemplate(4, "images/image4.png")
+		self.createTemplate(1, "images/match_image1.png")
+		self.createTemplate(2, "images/match_image2.png")
+		self.createTemplate(3, "images/match_image3.png")
+		self.createTemplate(4, "images/match_image4.png")
 
 		# 開始時刻の計測
 		self.start = time.time()

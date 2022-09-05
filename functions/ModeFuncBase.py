@@ -26,7 +26,7 @@ def createDictWindow():
 	layoutBackGround = [[sg.Text()]]
 	layoutStandby = make_fullimage_layout("png/standby01.png", "STANDBY")
 	layoutTitle = make_fullimage_layout("png/title.png", "TITLE")
-	layoutSelect_Game = make_4choice_layout("png/select01.png", ["もんだい1", "ピザ", "海", "画像"])
+	layoutSelect_Game = make_4choice_layout("png/select01.png", ["鍵屋マーク", "くらわんか茶碗", "", ""])
 	layoutGo_Tutorial = make_fullimage_layout("png/sample.png", "GO_TUTORIAL")
 	layoutEnding = make_fullimage_layout("png/ending.png", "ENDING")
 	layoutCard_Error = make_fullimage_layout("png/card_alert.png", "CARD_ERROR")
@@ -77,19 +77,13 @@ def select_game_ModeProc(dictArgument):
 	cCtrlCard = dictArgument["CtrlCard"]
 	dictSaveData = cCtrlCard.read_result()
 
-	if event == "もんだい1":
+	if event == "鍵屋マーク":
 		sStartTime = cState.updateState("MATCH_Q")
 		dictArgument["Start time"] = sStartTime
-	elif event == "ピザ":
-		sStartTime = cState.updateState("PIZZA_Q")
-		dictArgument["Start time"] = sStartTime
-	elif event == "海":
-		sStartTime = cState.updateState("SEA_Q")
-		dictArgument["Start time"] = sStartTime
-	elif event == "画像":
-		sStartTime = cState.updateState("QR_Q")
-		proc.createWindows()
-		dictArgument["Start time"] = sStartTime
+	elif event == "くらわんか茶碗":
+		# sStartTime = cState.updateState("PIZZA_Q")
+		# dictArgument["Start time"] = sStartTime
+		pass
 
 # チュートリアル未達成モード処理 ======================================================
 def go_tutorialModeProc(dictArgument):

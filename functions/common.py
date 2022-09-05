@@ -39,6 +39,8 @@ def Reset_Game(dictArgument):
 	dictArgument["Values"] = None
 	dictArgument["Frame"] = 0
 	dictArgument["Start time"] = sStartTime
+	dictArgument["State"].dictWindow["SELECT_GAME"]["鍵屋マーク"].update(disabled=False)
+	dictArgument["State"].dictWindow["SELECT_GAME"]["くらわんか茶碗"].update(disabled=False)
 
 
 # ゲームをクリアしたかを判定

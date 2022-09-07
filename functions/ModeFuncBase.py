@@ -27,7 +27,7 @@ def createDictWindow():
 	layoutStandby = make_fullimage_layout("png/standby01.png", "STANDBY")
 	layoutTitle = make_fullimage_layout("png/title.png", "TITLE")
 	layoutSelect_Game = make_4choice_layout("png/select01.png", ["鍵屋マーク", "くらわんか茶碗", "", ""])
-	layoutGo_Tutorial = make_fullimage_layout("png/sample.png", "GO_TUTORIAL")
+	layoutGo_Tutorial = make_fullimage_layout("png/go_tutorial.png", "GO_TUTORIAL")
 	layoutEnding = make_fullimage_layout("png/ending.png", "ENDING")
 	layoutCard_Error = make_fullimage_layout("png/card_alert.png", "CARD_ERROR")
 

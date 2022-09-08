@@ -12,10 +12,10 @@ from functions.DesignLayout import *
 def createDictProc():
 	dictProc = {
 		"STANDBY"			: standbyModeProc,
-		"TITLE"				: titleModeProc,
+		# "TITLE"				: titleModeProc,
 		"SELECT_GAME"		: select_game_ModeProc,
 		"GO_TUTORIAL"		: go_tutorialModeProc,
-		"ENDING"			: endingModeProc,
+		# "ENDING"			: endingModeProc,
 		"CARD_ERROR"		: card_error_ModeProc,
 	}
 	return dictProc
@@ -25,19 +25,19 @@ def createDictProc():
 def createDictWindow():
 	layoutBackGround = [[sg.Text()]]
 	layoutStandby = make_fullimage_layout("png/standby01.png", "STANDBY")
-	layoutTitle = make_fullimage_layout("png/title.png", "TITLE")
+	# layoutTitle = make_fullimage_layout("png/title.png", "TITLE")
 	layoutSelect_Game = make_4choice_layout("png/select01.png", ["鍵屋マーク", "くらわんか茶碗", "", ""])
 	layoutGo_Tutorial = make_fullimage_layout("png/go_tutorial.png", "GO_TUTORIAL")
-	layoutEnding = make_fullimage_layout("png/ending.png", "ENDING")
+	# layoutEnding = make_fullimage_layout("png/ending.png", "ENDING")
 	layoutCard_Error = make_fullimage_layout("png/card_alert.png", "CARD_ERROR")
 
 	dictLayout = {
 		"BACKGROUND"  : layoutBackGround,
 		"STANDBY"     : layoutStandby,
-		"TITLE"       : layoutTitle,
+		# "TITLE"       : layoutTitle,
 		"SELECT_GAME" : layoutSelect_Game,
 		"GO_TUTORIAL" : layoutGo_Tutorial,
-		"ENDING"      : layoutEnding,
+		# "ENDING"      : layoutEnding,
 		"CARD_ERROR"  : layoutCard_Error,
     }
 	dictWindow = setGUI(dictLayout)
@@ -46,12 +46,12 @@ def createDictWindow():
 
 
 # TITLEモード処理 ======================================================
-def titleModeProc(dictArgument):
-	event = dictArgument["Event"]
+# def titleModeProc(dictArgument):
+# 	event = dictArgument["Event"]
 	
-	if event == "TITLE":
-		# カードのデータからゲームの状態を設定
-		SetGame_FromCard(dictArgument)
+# 	if event == "TITLE":
+# 		# カードのデータからゲームの状態を設定
+# 		SetGame_FromCard(dictArgument)
 
 
 # STANDBYモード処理 ======================================================
@@ -96,11 +96,11 @@ def go_tutorialModeProc(dictArgument):
 		Reset_Game(dictArgument)
 
 # ENDINGモード処理 =========================================================
-def endingModeProc(dictArgument):
-	event = dictArgument["Event"]
+# def endingModeProc(dictArgument):
+# 	event = dictArgument["Event"]
 	
-	if event == "ENDING":
-		dictArgument["Complete"] = 1
+# 	if event == "ENDING":
+# 		dictArgument["Complete"] = 1
 
 
 # card_errorモード処理 ======================================================

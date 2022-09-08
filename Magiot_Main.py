@@ -6,8 +6,10 @@ import os
 from functions.ModeFuncBase import *
 from functions.CardFunc import *
 from functions.ModeFuncMatch import updateDictProc_Match, updateDictWindow_Match
+from functions.ModeFuncSpeaker import *
 from functions.common import getDictFlag
 from Classes.ClsCtrlStateAndWindow import ClsCtrlStateAndWindow
+from Classes.ClsSoundPlay import ClsSoundPlay
 
 if os.name == 'nt':
 	from Classes.ClsCtrlCardDummy import ClsCtrlCard
@@ -18,6 +20,7 @@ else:
 import sys
 sys.path.append("./Classes")
 from ClsImageProcessTempMatch import ClsImageProcessTempMatch
+
 
 
 # 環境設定 =============================================================
@@ -45,14 +48,16 @@ def setEnvironment():
 		tplWindowName,
 		sFlipMode,
 	)
+	cAudio = ClsSoundPlay()
 
-	return proc
+	return proc, cAudio
 
 
 # モード別設定 =============================================================
 def setModeFuncsAndLayouts(blDebug):
 	dictWindow = createDictWindow()
 	dictWindow = updateDictWindow_Match(dictWindow)
+	dictWindow = updateDictWindow_Speaker(dictWindow)
 
 	if blDebug == False:
 		for sKey in dictWindow:
@@ -64,6 +69,7 @@ def setModeFuncsAndLayouts(blDebug):
 
 	dictProc = createDictProc()
 	dictProc = updateDictProc_Match(dictProc)
+	dictProc = updateDictProc_Speaker(dictProc)
 
 	dictFlag = getDictFlag()
 
@@ -73,7 +79,7 @@ def setModeFuncsAndLayouts(blDebug):
 # メインスレッド =======================================================
 def mainThread():
 	blDebug = True
-	proc = setEnvironment()
+	proc, cAudio = setEnvironment()
 	cState, dictProc, dictFlag = setModeFuncsAndLayouts(blDebug)
 	cCtrlCard = ClsCtrlCard(dictFlag)
 
@@ -89,6 +95,7 @@ def mainThread():
 		"State"			: cState,
 		"CtrlCard"		: cCtrlCard,
 		"ImageProc"		: proc,
+		"Player"		: cAudio,
 		"Event"			: None,
 		"Values"		: None,
 		"Frame"			: 0,

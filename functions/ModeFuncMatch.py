@@ -73,7 +73,7 @@ def procMatch_Process(dictArgument):
 		sStartTime = cState.updateState("MATCH_ANSWER")
 		dictArgument["Start time"] = sStartTime
 
-		proc.Finalize()
+		proc.closeWindows()
 
 # 正解オーバーレイ表示 ================================================
 # def procMatch_Correct(dictArgument):

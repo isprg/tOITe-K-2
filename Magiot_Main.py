@@ -9,7 +9,6 @@ from functions.ModeFuncMatch import updateDictProc_Match, updateDictWindow_Match
 from functions.ModeFuncSpeaker import *
 from functions.common import getDictFlag
 from Classes.ClsCtrlStateAndWindow import ClsCtrlStateAndWindow
-from Classes.ClsSoundPlay import ClsSoundPlay
 
 if os.name == 'nt':
 	from Classes.ClsCtrlCardDummy import ClsCtrlCard
@@ -20,6 +19,7 @@ else:
 import sys
 sys.path.append("./Classes")
 from ClsImageProcessTempMatch import ClsImageProcessTempMatch
+from ClsAudioOut import ClsAudioOut
 
 
 
@@ -48,7 +48,7 @@ def setEnvironment():
 		tplWindowName,
 		sFlipMode,
 	)
-	cAudio = ClsSoundPlay()
+	cAudio = ClsAudioOut()
 
 	return proc, cAudio
 

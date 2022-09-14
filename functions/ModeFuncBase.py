@@ -60,10 +60,14 @@ def standbyModeProc(dictArgument):
 	cState = dictArgument["State"]
 	cAudio = dictArgument["Player"]
 
+	# if cAudio.getKeepAlive() == False:
+	# 	cAudio.startKeepAlive(5)
+
 	setFlag = cCtrlCard.setCard()
 
 	if setFlag:
-		cAudio.playSound("sound/card_set.wav")
+		# cAudio.shutdownThread()
+		cAudio.playSoundAsync("sound/card_set.wav")
 		sStartTime = cState.updateState("SELECT_GAME")
 		dictArgument["Start time"] = sStartTime
 		SetGame_FromCard(dictArgument)
@@ -85,7 +89,7 @@ def select_game_ModeProc(dictArgument):
 	elif event == "くらわんか茶碗":
 		sStartTime = cState.updateState("SPEAKER_Q")
 		dictArgument["Start time"] = sStartTime
-		cAudio.playSound("sound/question_tahei.wav")
+		cAudio.playSoundAsync("sound/question_tahei.wav", 2)
 
 # チュートリアル未達成モード処理 ======================================================
 def go_tutorialModeProc(dictArgument):

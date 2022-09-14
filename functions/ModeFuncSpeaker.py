@@ -55,7 +55,7 @@ def getAreaDefinition():
 
 # 正解座標設定 ================================================
 def getCorrectAreaDefinition():
-    vCorrectArea0 = [730, 260, 70, 90]
+    vCorrectArea0 = [730, 260, 140, 90]
     listCorrectArea = [vCorrectArea0, ]
 
     return listCorrectArea
@@ -72,12 +72,12 @@ def procSpeaker_Q(dictArgument):
 		sTappedArea = CheckTappedArea(vPosition, listArea)
 		print(sTappedArea)
 
-		if sTappedArea == 0:  # 答えるをタップ
+		if sTappedArea == 0 and cAudio.getSoundEnd() == True:  # 答えるをタップ
 			sStartTime = cState.updateState("SPEAKER_PROCESS")
 			dictArgument["Start time"] = sStartTime
 
-		elif sTappedArea == 1:  # もういちどをタップ
-			cAudio.playSound("sound/question_tahei.wav")
+		elif sTappedArea == 1 and cAudio.getSoundEnd() == True:  # もういちどをタップ
+			cAudio.playSoundAsync("sound/question_tahei.wav", 2)
 
 # 回答画面表示 ==================================================
 def procSpeaker_Process(dictArgument):
@@ -93,9 +93,9 @@ def procSpeaker_Process(dictArgument):
 		if sTappedArea == 0:  # 丸窓紋の茶碗をタップ
 			sStartTime = cState.updateState("SPEAKER_ANSWER")
 			dictArgument["Start time"] = sStartTime
-			cAudio.playSound("sound/correct.wav")
+			cAudio.playSoundAsync("sound/correct.wav")
 		elif sTappedArea == -1: # それ以外をタップ
-			cAudio.playSound("sound/wrong.wav")
+			cAudio.playSoundAsync("sound/wrong.wav")
 
 # 解説表示 ================================================
 def procSpeaker_Answer(dictArgument):

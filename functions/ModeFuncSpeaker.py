@@ -77,7 +77,7 @@ def procSpeaker_Q(dictArgument):
 			dictArgument["Start time"] = sStartTime
 
 		elif sTappedArea == 1 and cAudio.getSoundEnd() == True:  # もういちどをタップ
-			cAudio.playSoundAsync("sound/question_tahei.wav", 2)
+			cAudio.playSoundAsync("sound/question_tahei.wav")
 
 # 回答画面表示 ==================================================
 def procSpeaker_Process(dictArgument):

@@ -51,6 +51,9 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 		for i in range(5):
 			self.sensor.read()
 		self.createOverlay("images/overlay_process.png")
+	
+	def setAudio(self, cAudio):
+		self.cAudio = cAudio
 
 	def createOverlay(self, imgPath: str):
 		"""オーバーレイを変更する
@@ -124,9 +127,9 @@ class ClsImageProcessTempMatch(ClsImageProcess):
 			# 音声再生
 			if self.PlaySound_Flag:
 				if self.tempId == 1:
-					PlaySound("sound/correct.wav")
+					self.cAudio.playSoundAsync("sound/correct.wav")
 				elif self.tempId is not None:
-					PlaySound("sound/wrong.wav")
+					self.cAudio.playSoundAsync("sound/wrong.wav")
 				self.PlaySound_Flag = False
 
 		# 判定処理

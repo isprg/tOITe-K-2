@@ -49,6 +49,7 @@ def setEnvironment():
 		sFlipMode,
 	)
 	cAudio = ClsAudioOut()
+	proc.setAudio(cAudio)
 
 	return proc, cAudio
 

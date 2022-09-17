@@ -56,21 +56,21 @@ def createDictWindow():
 
 # STANDBYモード処理 ======================================================
 def standbyModeProc(dictArgument):
-	cCtrlCard = dictArgument["CtrlCard"]
-	cState = dictArgument["State"]
-	cAudio = dictArgument["Player"]
+    cCtrlCard = dictArgument["CtrlCard"]
+    cState = dictArgument["State"]
+    cAudio = dictArgument["Player"]
 
-	if cAudio.getKeepAlive() == False:
-		cAudio.startKeepAlive(60)
+    if cAudio.getKeepAlive() == False:
+        cAudio.startKeepAlive(120)
 
-	setFlag = cCtrlCard.setCard()
+    setFlag = cCtrlCard.setCard()
 
-	if setFlag:
-		cAudio.setKeepAlive(False)
-		cAudio.playSoundAsync("sound/card_set.wav")
-		sStartTime = cState.updateState("SELECT_GAME")
-		dictArgument["Start time"] = sStartTime
-		SetGame_FromCard(dictArgument)
+    if setFlag:
+        cAudio.setKeepAlive(False)
+        cAudio.playSoundAsync("sound/card_set.wav")
+        sStartTime = cState.updateState("SELECT_GAME")
+        dictArgument["Start time"] = sStartTime
+        SetGame_FromCard(dictArgument)
 
 
 # SELECT_GAMEモード処理 =================================================
